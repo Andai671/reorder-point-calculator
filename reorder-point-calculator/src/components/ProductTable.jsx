@@ -1,4 +1,5 @@
 import StatusBadge from "./StatusBadge";
+import { getStatus } from "../lib/inventory";
 
 function ProductTable({ products }) {
   return (
@@ -25,9 +26,7 @@ function ProductTable({ products }) {
               <td>{product.lead_time_days}</td>
               <td>{product.safety_days}</td>
               <td>
-                <StatusBadge status="Order Now" />
-                <StatusBadge status="Order Soon" />
-                <StatusBadge status="Healthy" />
+                <StatusBadge status={getStatus(product)} />
               </td>
             </tr>
           );
