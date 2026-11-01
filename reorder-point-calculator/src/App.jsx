@@ -29,7 +29,7 @@ const sampleProducts = [
   {
     sku: "MBPRO-MVVJ2-GY-RF",
     name: 'Macbook Pro 16" 2019 i7 16GB RAM 512GB SSD Space Gray',
-    current_stock: 4,
+    current_stock: 0,
     avg_daily_sales: 4,
     lead_time_days: 10,
     safety_days: 10,

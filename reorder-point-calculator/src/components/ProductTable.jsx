@@ -1,5 +1,5 @@
 import StatusBadge from "./StatusBadge";
-import { getStatus } from "../lib/inventory";
+import { getStatus, calcDaysOfCover } from "../lib/inventory";
 
 function ProductTable({ products }) {
   return (
@@ -13,10 +13,13 @@ function ProductTable({ products }) {
           <th>Lead Time</th>
           <th>Safety Days</th>
           <th>Status</th>
+          <th>Days of Cover</th>
         </tr>
       </thead>
       <tbody>
         {products.map((product) => {
+          const daysOfCover = calcDaysOfCover(product);
+
           return (
             <tr key={product.sku}>
               <td>{product.sku}</td>
@@ -27,6 +30,11 @@ function ProductTable({ products }) {
               <td>{product.safety_days}</td>
               <td>
                 <StatusBadge status={getStatus(product)} />
+              </td>
+              <td>
+                {daysOfCover === Infinity
+                  ? "No Sales"
+                  : Math.round(daysOfCover)}
               </td>
             </tr>
           );

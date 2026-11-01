@@ -24,3 +24,11 @@ export function getStatus(product) {
 
   return "Healthy";
 }
+
+export function calcDaysOfCover(product) {
+  if (product.avg_daily_sales === 0) {
+    return Infinity;
+  }
+
+  return product.current_stock / product.avg_daily_sales;
+}
