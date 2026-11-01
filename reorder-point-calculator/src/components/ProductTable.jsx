@@ -1,14 +1,17 @@
+import StatusBadge from "./StatusBadge";
+
 function ProductTable({ products }) {
   return (
     <table>
       <thead>
         <tr>
-          <th>Sku</th>
+          <th>SKU</th>
           <th>Product Name</th>
           <th>Current Stock</th>
           <th>Avg Daily Sales</th>
           <th>Lead Time</th>
           <th>Safety Days</th>
+          <th>Status</th>
         </tr>
       </thead>
       <tbody>
@@ -21,6 +24,11 @@ function ProductTable({ products }) {
               <td>{product.avg_daily_sales}</td>
               <td>{product.lead_time_days}</td>
               <td>{product.safety_days}</td>
+              <td>
+                <StatusBadge status="Order Now" />
+                <StatusBadge status="Order Soon" />
+                <StatusBadge status="Healthy" />
+              </td>
             </tr>
           );
         })}

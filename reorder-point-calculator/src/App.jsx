@@ -1,4 +1,5 @@
 import "./App.css";
+import ProductTable from "./components/ProductTable";
 
 const sampleProducts = [
   {
@@ -47,13 +48,7 @@ function App() {
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
-      {sampleProducts.map((product) => {
-        return (
-          <p key={product.sku}>
-            {product.sku}: {product.name}
-          </p>
-        );
-      })}
+      <ProductTable products={sampleProducts} />
     </div>
   );
 }
