@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import ProductTable from "./components/ProductTable";
 import SummaryCards from "./components/SummaryCards";
@@ -46,11 +47,12 @@ const sampleProducts = [
 ];
 
 function App() {
+  const [products, setProducts] = useState(sampleProducts);
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
-      <SummaryCards products={sampleProducts} />
-      <ProductTable products={sampleProducts} />
+      <SummaryCards products={products} />
+      <ProductTable products={products} />
     </div>
   );
 }
