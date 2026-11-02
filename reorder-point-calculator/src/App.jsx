@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import ProductTable from "./components/ProductTable";
 import SummaryCards from "./components/SummaryCards";
+import ProductForm from "./components/ProductForm";
 
 const sampleProducts = [
   {
@@ -48,10 +49,15 @@ const sampleProducts = [
 
 function App() {
   const [products, setProducts] = useState(sampleProducts);
+
+  function handleAddProduct(newProduct) {
+    setProducts((prevProducts) => [...prevProducts, newProduct]);
+  }
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
       <SummaryCards products={products} />
+      <ProductForm onAddProduct={handleAddProduct} />
       <ProductTable products={products} />
     </div>
   );
