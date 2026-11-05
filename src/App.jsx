@@ -55,6 +55,14 @@ function App() {
   }
 
   function handleDeleteProduct(sku) {
+    const confirmed = window.confirm(
+      `Delete SKU: ${sku}? This can't be undone.`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     setProducts((prevProducts) =>
       prevProducts.filter((product) => product.sku !== sku),
     );
