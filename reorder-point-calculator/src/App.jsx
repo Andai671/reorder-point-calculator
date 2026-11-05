@@ -53,12 +53,18 @@ function App() {
   function handleAddProduct(newProduct) {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
   }
+
+  function handleDeleteProduct(sku) {
+    setProducts((prevProducts) =>
+      prevProducts.filter((product) => product.sku !== sku),
+    );
+  }
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
       <SummaryCards products={products} />
       <ProductForm onAddProduct={handleAddProduct} />
-      <ProductTable products={products} />
+      <ProductTable products={products} onDeleteProduct={handleDeleteProduct} />
     </div>
   );
 }
