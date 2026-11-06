@@ -9,8 +9,8 @@ const emptyForm = {
   safety_days: "",
 };
 
-function ProductForm({ onAddProduct }) {
-  const [formData, setFormData] = useState(emptyForm);
+function ProductForm({ onAddProduct, editingProduct }) {
+  const [formData, setFormData] = useState(editingProduct || emptyForm);
 
   function handleChange(event) {
     const { name, value } = event.target;

@@ -76,7 +76,11 @@ function App() {
     <div>
       <h1>Reorder Point Calculator</h1>
       <SummaryCards products={products} />
-      <ProductForm onAddProduct={handleAddProduct} />
+      <ProductForm
+        onAddProduct={handleAddProduct}
+        editingProduct={editingProduct}
+        key={editingProduct ? editingProduct.sku : "new"}
+      />
       <ProductTable
         products={products}
         onDeleteProduct={handleDeleteProduct}
