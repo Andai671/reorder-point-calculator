@@ -1,7 +1,7 @@
 import StatusBadge from "./StatusBadge";
 import { getStatus, calcDaysOfCover } from "../lib/inventory";
 
-function ProductTable({ products, onDeleteProduct }) {
+function ProductTable({ products, onDeleteProduct, onEditProduct }) {
   return (
     <table>
       <thead>
@@ -38,6 +38,7 @@ function ProductTable({ products, onDeleteProduct }) {
                   : Math.round(daysOfCover)}
               </td>
               <td>
+                <button onClick={() => onEditProduct(product)}>Edit</button>
                 <button onClick={() => onDeleteProduct(product.sku)}>
                   Delete
                 </button>

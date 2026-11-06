@@ -49,6 +49,7 @@ const sampleProducts = [
 
 function App() {
   const [products, setProducts] = useState(sampleProducts);
+  const [editingProduct, setEditingProduct] = useState(null);
 
   function handleAddProduct(newProduct) {
     setProducts((prevProducts) => [...prevProducts, newProduct]);
@@ -67,12 +68,20 @@ function App() {
       prevProducts.filter((product) => product.sku !== sku),
     );
   }
+
+  function handleStartEdit(product) {
+    setEditingProduct(product);
+  }
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
       <SummaryCards products={products} />
       <ProductForm onAddProduct={handleAddProduct} />
-      <ProductTable products={products} onDeleteProduct={handleDeleteProduct} />
+      <ProductTable
+        products={products}
+        onDeleteProduct={handleDeleteProduct}
+        onEditProduct={handleStartEdit}
+      />
     </div>
   );
 }
