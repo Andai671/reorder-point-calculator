@@ -22,7 +22,7 @@ function ProductTable({ products, onDeleteProduct, onEditProduct }) {
           const daysOfCover = calcDaysOfCover(product);
 
           return (
-            <tr key={product.sku}>
+            <tr key={product.id}>
               <td>{product.sku}</td>
               <td>{product.name}</td>
               <td>{product.current_stock}</td>
@@ -39,9 +39,7 @@ function ProductTable({ products, onDeleteProduct, onEditProduct }) {
               </td>
               <td>
                 <button onClick={() => onEditProduct(product)}>Edit</button>
-                <button onClick={() => onDeleteProduct(product.sku)}>
-                  Delete
-                </button>
+                <button onClick={() => onDeleteProduct(product)}>Delete</button>
               </td>
             </tr>
           );

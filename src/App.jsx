@@ -6,6 +6,7 @@ import ProductForm from "./components/ProductForm";
 
 const sampleProducts = [
   {
+    id: "1",
     sku: "IPH15-128-BK-UL-RF",
     name: "iPhone 15 128GB Black Unlocked",
     current_stock: 40,
@@ -14,6 +15,7 @@ const sampleProducts = [
     safety_days: 7,
   },
   {
+    id: "2",
     sku: "IPH16-128-BK-UL-RF",
     name: "iPhone 16 128GB Black Unlocked",
     current_stock: 20,
@@ -22,6 +24,7 @@ const sampleProducts = [
     safety_days: 7,
   },
   {
+    id: "3",
     sku: "IPAD10-64-BL-UL-RF",
     name: "iPad 10th Generation 64GB Blue Unlocked",
     current_stock: 320,
@@ -30,6 +33,7 @@ const sampleProducts = [
     safety_days: 7,
   },
   {
+    id: "4",
     sku: "MBPRO-MVVJ2-GY-RF",
     name: 'Macbook Pro 16" 2019 i7 16GB RAM 512GB SSD Space Gray',
     current_stock: 0,
@@ -38,6 +42,7 @@ const sampleProducts = [
     safety_days: 10,
   },
   {
+    id: "5",
     sku: "IPH17PM-256-BK-UL-RF",
     name: "iPhone 17 Pro Max 256GB Black Unlocked",
     current_stock: 200,
@@ -52,12 +57,14 @@ function App() {
   const [editingProduct, setEditingProduct] = useState(null);
 
   function handleAddProduct(newProduct) {
-    setProducts((prevProducts) => [...prevProducts, newProduct]);
+    const productWithId = { ...newProduct, id: crypto.randomUUID() };
+
+    setProducts((prevProducts) => [...prevProducts, productWithId]);
   }
 
-  function handleDeleteProduct(sku) {
+  function handleDeleteProduct(productToDelete) {
     const confirmed = window.confirm(
-      `Delete SKU: ${sku}? This can't be undone.`,
+      `Delete SKU: ${productToDelete.sku}? This can't be undone.`,
     );
 
     if (!confirmed) {
@@ -65,7 +72,7 @@ function App() {
     }
 
     setProducts((prevProducts) =>
-      prevProducts.filter((product) => product.sku !== sku),
+      prevProducts.filter((product) => product.id !== productToDelete.id),
     );
   }
 
@@ -76,7 +83,7 @@ function App() {
   function handleUpdateProduct(updatedProduct) {
     setProducts((prevProducts) =>
       prevProducts.map((product) =>
-        product.sku === editingProduct.sku ? updatedProduct : product,
+        product.id === editingProduct.id ? updatedProduct : product,
       ),
     );
 
@@ -94,7 +101,7 @@ function App() {
       <ProductForm
         onAddProduct={handleAddProduct}
         editingProduct={editingProduct}
-        key={editingProduct ? editingProduct.sku : "new"}
+        key={editingProduct ? editingProduct.id : "new"}
         onUpdateProduct={handleUpdateProduct}
         onCancelEdit={handleCancelEdit}
       />
