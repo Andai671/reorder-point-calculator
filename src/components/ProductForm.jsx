@@ -9,7 +9,12 @@ const emptyForm = {
   safety_days: "",
 };
 
-function ProductForm({ onAddProduct, editingProduct, onUpdateProduct }) {
+function ProductForm({
+  onAddProduct,
+  editingProduct,
+  onUpdateProduct,
+  onCancelEdit,
+}) {
   const [formData, setFormData] = useState(editingProduct ?? emptyForm);
 
   function handleChange(event) {
@@ -86,7 +91,11 @@ function ProductForm({ onAddProduct, editingProduct, onUpdateProduct }) {
       <button type="submit">
         {editingProduct === null ? "Add Product" : "Save Changes"}
       </button>
-      <pre>{JSON.stringify(formData, null, 2)}</pre>
+      {editingProduct && (
+        <button type="button" onClick={onCancelEdit}>
+          Cancel
+        </button>
+      )}
     </form>
   );
 }

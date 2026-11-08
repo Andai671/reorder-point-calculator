@@ -82,6 +82,11 @@ function App() {
 
     setEditingProduct(null);
   }
+
+  function handleCancelEdit() {
+    setEditingProduct(null);
+  }
+
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
@@ -91,6 +96,7 @@ function App() {
         editingProduct={editingProduct}
         key={editingProduct ? editingProduct.sku : "new"}
         onUpdateProduct={handleUpdateProduct}
+        onCancelEdit={handleCancelEdit}
       />
       <ProductTable
         products={products}
