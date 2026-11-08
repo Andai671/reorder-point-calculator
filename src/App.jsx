@@ -72,6 +72,16 @@ function App() {
   function handleStartEdit(product) {
     setEditingProduct(product);
   }
+
+  function handleUpdateProduct(updatedProduct) {
+    setProducts((prevProducts) =>
+      prevProducts.map((product) =>
+        product.sku === editingProduct.sku ? updatedProduct : product,
+      ),
+    );
+
+    setEditingProduct(null);
+  }
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
@@ -80,6 +90,7 @@ function App() {
         onAddProduct={handleAddProduct}
         editingProduct={editingProduct}
         key={editingProduct ? editingProduct.sku : "new"}
+        onUpdateProduct={handleUpdateProduct}
       />
       <ProductTable
         products={products}

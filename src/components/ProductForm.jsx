@@ -9,8 +9,8 @@ const emptyForm = {
   safety_days: "",
 };
 
-function ProductForm({ onAddProduct, editingProduct }) {
-  const [formData, setFormData] = useState(editingProduct || emptyForm);
+function ProductForm({ onAddProduct, editingProduct, onUpdateProduct }) {
+  const [formData, setFormData] = useState(editingProduct ?? emptyForm);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -27,7 +27,13 @@ function ProductForm({ onAddProduct, editingProduct }) {
       lead_time_days: Number(formData.lead_time_days),
       safety_days: Number(formData.safety_days),
     };
-    onAddProduct(newProduct);
+
+    if (editingProduct) {
+      onUpdateProduct(newProduct);
+    } else {
+      onAddProduct(newProduct);
+    }
+
     setFormData(emptyForm);
   }
 
@@ -77,7 +83,9 @@ function ProductForm({ onAddProduct, editingProduct }) {
           onChange={handleChange}
         />
       </label>
-      <button type="submit">Add Product</button>
+      <button type="submit">
+        {editingProduct === null ? "Add Product" : "Save Changes"}
+      </button>
       <pre>{JSON.stringify(formData, null, 2)}</pre>
     </form>
   );
