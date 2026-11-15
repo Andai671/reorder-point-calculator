@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import ProductTable from "./components/ProductTable";
 import SummaryCards from "./components/SummaryCards";
 import ProductForm from "./components/ProductForm";
+import { saveProducts, loadProducts } from "./lib/storage";
 
 const sampleProducts = [
   {
@@ -53,8 +54,14 @@ const sampleProducts = [
 ];
 
 function App() {
-  const [products, setProducts] = useState(sampleProducts);
+  const [products, setProducts] = useState(
+    () => loadProducts() ?? sampleProducts,
+  );
   const [editingProduct, setEditingProduct] = useState(null);
+
+  useEffect(() => {
+    saveProducts(products);
+  }, [products]);
 
   function handleAddProduct(newProduct) {
     const productWithId = { ...newProduct, id: crypto.randomUUID() };
