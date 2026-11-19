@@ -4,6 +4,7 @@ import ProductTable from "./components/ProductTable";
 import SummaryCards from "./components/SummaryCards";
 import ProductForm from "./components/ProductForm";
 import { saveProducts, loadProducts } from "./lib/storage";
+import { getStatus } from "./lib/inventory";
 
 const sampleProducts = [
   {
@@ -53,11 +54,14 @@ const sampleProducts = [
   },
 ];
 
+const STATUS_FILTERS = ["All", "Order Now", "Order Soon", "Healthy"];
+
 function App() {
   const [products, setProducts] = useState(
     () => loadProducts() ?? sampleProducts,
   );
   const [editingProduct, setEditingProduct] = useState(null);
+  const [statusFilter, setStatusFilter] = useState("All");
 
   useEffect(() => {
     saveProducts(products);
@@ -101,6 +105,10 @@ function App() {
     setEditingProduct(null);
   }
 
+  const visibleProducts = products.filter((product) => {
+    return statusFilter === "All" ? true : getStatus(product) === statusFilter;
+  });
+
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
@@ -112,8 +120,17 @@ function App() {
         onUpdateProduct={handleUpdateProduct}
         onCancelEdit={handleCancelEdit}
       />
+      {STATUS_FILTERS.map((filter) => (
+        <button
+          key={filter}
+          onClick={() => setStatusFilter(filter)}
+          disabled={statusFilter === filter}
+        >
+          {filter}
+        </button>
+      ))}
       <ProductTable
-        products={products}
+        products={visibleProducts}
         onDeleteProduct={handleDeleteProduct}
         onEditProduct={handleStartEdit}
       />
