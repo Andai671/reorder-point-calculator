@@ -62,6 +62,7 @@ function App() {
   );
   const [editingProduct, setEditingProduct] = useState(null);
   const [statusFilter, setStatusFilter] = useState("All");
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     saveProducts(products);
@@ -109,7 +110,16 @@ function App() {
     return statusFilter === "All" ? true : getStatus(product) === statusFilter;
   });
 
-  const sortedProducts = [...visibleProducts].sort(
+  const query = searchText.toLowerCase();
+
+  const searchedProducts = visibleProducts.filter((product) => {
+    return (
+      product.sku.toLowerCase().includes(query) ||
+      product.name.toLowerCase().includes(query)
+    );
+  });
+
+  const sortedProducts = [...searchedProducts].sort(
     (a, b) => calcDaysOfCover(a) - calcDaysOfCover(b),
   );
 
@@ -133,6 +143,11 @@ function App() {
           {filter}
         </button>
       ))}
+      <input
+        placeholder="Search SKU or name"
+        value={searchText}
+        onChange={(e) => setSearchText(e.target.value)}
+      />
       <ProductTable
         products={sortedProducts}
         onDeleteProduct={handleDeleteProduct}
