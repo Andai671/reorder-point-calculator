@@ -123,6 +123,14 @@ function App() {
     (a, b) => calcDaysOfCover(a) - calcDaysOfCover(b),
   );
 
+  let emptyMessage = null;
+
+  if (products.length === 0) {
+    emptyMessage = "No products available. Add one above.";
+  } else if (sortedProducts.length === 0) {
+    emptyMessage = "No products match your search or filter.";
+  }
+
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
@@ -148,11 +156,15 @@ function App() {
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
-      <ProductTable
-        products={sortedProducts}
-        onDeleteProduct={handleDeleteProduct}
-        onEditProduct={handleStartEdit}
-      />
+      {emptyMessage ? (
+        <p>{emptyMessage}</p>
+      ) : (
+        <ProductTable
+          products={sortedProducts}
+          onDeleteProduct={handleDeleteProduct}
+          onEditProduct={handleStartEdit}
+        />
+      )}
     </div>
   );
 }
