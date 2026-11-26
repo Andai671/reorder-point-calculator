@@ -4,7 +4,7 @@ import ProductTable from "./components/ProductTable";
 import SummaryCards from "./components/SummaryCards";
 import ProductForm from "./components/ProductForm";
 import { saveProducts, loadProducts } from "./lib/storage";
-import { getStatus } from "./lib/inventory";
+import { getStatus, calcDaysOfCover } from "./lib/inventory";
 
 const sampleProducts = [
   {
@@ -109,6 +109,10 @@ function App() {
     return statusFilter === "All" ? true : getStatus(product) === statusFilter;
   });
 
+  const sortedProducts = [...visibleProducts].sort(
+    (a, b) => calcDaysOfCover(a) - calcDaysOfCover(b),
+  );
+
   return (
     <div>
       <h1>Reorder Point Calculator</h1>
@@ -130,7 +134,7 @@ function App() {
         </button>
       ))}
       <ProductTable
-        products={visibleProducts}
+        products={sortedProducts}
         onDeleteProduct={handleDeleteProduct}
         onEditProduct={handleStartEdit}
       />
