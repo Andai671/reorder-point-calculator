@@ -136,6 +136,7 @@ function App() {
       <h1>Reorder Point Calculator</h1>
       <SummaryCards products={products} />
       <ProductForm
+        products={products}
         onAddProduct={handleAddProduct}
         editingProduct={editingProduct}
         key={editingProduct ? editingProduct.id : "new"}
